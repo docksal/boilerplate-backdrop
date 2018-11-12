@@ -4,7 +4,7 @@ This is a sample Backdrop CMS installation pre-configured for use with Docksal.
 
 Features:
 
-- Backdrop CMS
+- Backdrop CMS (updated to version 1.11.2 on 12-Nov-2018)
 - `fin init` example
 
 ## Setup instructions
@@ -14,7 +14,7 @@ Features:
 **This is a one time setup - skip this if you already have a working Docksal environment.**  
 
 Follow [Docksal environment setup instructions](http://docksal.readthedocs.io/en/master/getting-started/env-setup)
-   
+
 ### Step 2: Project setup
 
 1. Clone this repo into your Projects directory

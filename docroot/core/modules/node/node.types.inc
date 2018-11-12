@@ -89,6 +89,13 @@ function node_type_form($form, &$form_state, $type = NULL) {
   // Make the type object available to implementations of hook_form_alter().
   $form['#node_type'] = $type;
 
+  // Create the body field by default on form submission. This may be altered by
+  // other modules.
+  $form['body'] = array(
+    '#type' => 'value',
+    '#value' => TRUE,
+  );
+
   $form['name'] = array(
     '#title' => t('Name'),
     '#type' => 'textfield',
@@ -294,6 +301,12 @@ function node_type_form($form, &$form_state, $type = NULL) {
       ),
     );
   }
+  $form['display']['hidden_path'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Hide path display'),
+    '#default_value' => $type->settings['hidden_path'],
+    '#description' => t('If enabled, this content can be placed as a block or within a listing but will not be accessible at its URL without proper permissions. This facilitates "hidden path" content that is meant to be embedded with other content and never on its own. Users who have the "View hidden paths" permission will still be able to visit the full page URL, while those without this permission will receive a "Page not found" error.'),
+  );
 
   $form['old_type'] = array(
     '#type' => 'value',
@@ -421,7 +434,9 @@ function node_type_form_submit($form, &$form_state) {
       }
       user_role_grant_permissions($role->name, $valid_perms);
     }
-    node_add_body_field($type);
+    if ($form_state['values']['body']) {
+      node_add_body_field($type);
+    }
     backdrop_set_message(t('The content type %name has been added.', array('%name' => $type->name)));
     watchdog('node', 'Added content type %name.', array('%name' => $type->name), WATCHDOG_NOTICE, l(t('view'), 'admin/structure/types'));
   }
@@ -547,6 +562,9 @@ function node_node_type_load(&$types) {
       // Submitted information.
       'node_submitted' => TRUE,
       'node_user_picture' => TRUE,
+
+      // Setting to prevent page from being accessed directly.
+      'hidden_path' => FALSE,
 
       // Though Language module is required to change this setting, all node
       // types have a language setting, even if it is disabled by default.

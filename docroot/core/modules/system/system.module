@@ -2161,6 +2161,11 @@ function system_authorized_batch_process($redirect_callback = 'backdrop_goto') {
  */
 function system_updater_info() {
   return array(
+    'core' => array(
+      'class' => 'CoreUpdater',
+      'name' => t('Update Backdrop core'),
+      'weight' => 0,
+    ),
     'module' => array(
       'class' => 'ModuleUpdater',
       'name' => t('Update modules'),
@@ -2795,9 +2800,13 @@ function _system_rebuild_module_data() {
 
   // Include the installation profile in modules that are loaded.
   $profile = backdrop_get_profile();
+  $profile_uri = 'profiles/' . $profile . '/' . $profile . '.profile';
+  if (file_exists(BACKDROP_ROOT . '/core/profiles/' . $profile . '/' . $profile . '.profile')) {
+    $profile_uri = 'core/' . $profile_uri;
+  }
   $modules[$profile] = new stdClass();
   $modules[$profile]->name = $profile;
-  $modules[$profile]->uri = 'profiles/' . $profile . '/' . $profile . '.profile';
+  $modules[$profile]->uri = $profile_uri;
   $modules[$profile]->filename = $profile . '.profile';
 
   // Installation profile hooks are always executed last.
@@ -2853,6 +2862,34 @@ function _system_rebuild_module_data() {
     // otherwise in the .info file.
     if ($key == $profile && !isset($modules[$key]->info['hidden'])) {
       $modules[$key]->info['hidden'] = TRUE;
+    }
+
+    // Apply best guess version information if this is a Git checkout.
+    if (empty($modules[$key]->info['version'])) {
+      $module_base_path = BACKDROP_ROOT . '/' . preg_replace('!(.*modules/[^/]+).*!', '$1', $module->uri);
+      $git_version = FALSE;
+      if (file_exists($module_base_path . '/.git/HEAD')) {
+        // Branches names are directly in the HEAD file.
+        $git_head_contents = trim(file_get_contents($module_base_path . '/.git/HEAD'));
+        if (strpos($git_head_contents, 'ref') === 0) {
+          $git_version = trim(preg_replace('!^.*refs/heads/(.*)$!', '$1', $git_head_contents));
+        }
+        // Tags are named by sha1 hash, loop through each tag file to match it.
+        elseif (is_dir($module_base_path . '/.git/refs/tags')) {
+          $tag_files = file_scan_directory($module_base_path . '/.git/refs/tags', '/.*/', array('key' => 'filename', 'recurse' => FALSE));
+          $tag_files = array_reverse($tag_files, TRUE);
+          foreach ($tag_files as $tag_name => $tag_file) {
+            if (trim(file_get_contents($tag_file->uri)) == $git_head_contents) {
+              $git_version = $tag_name;
+              break;
+            }
+          }
+        }
+        if ($git_version) {
+          $git_version = preg_replace('/^' . preg_quote(BACKDROP_CORE_COMPATIBILITY, '/') . '-/', '', $git_version);
+          $modules[$key]->info['version'] = $git_version . '-dev';
+        }
+      }
     }
 
     // Invoke hook_system_info_alter() to give installed modules a chance to
@@ -3872,6 +3909,7 @@ function system_autoload_info() {
     'SystemQueue' => 'system.queue.inc',
     'MemoryQueue' => 'system.queue.inc',
     'Archive_Tar' => 'system.tar.inc',
+    'CoreUpdater' => 'system.updater.inc',
     'ModuleUpdater' => 'system.updater.inc',
     'ThemeUpdater' => 'system.updater.inc',
     'LayoutUpdater' => 'system.updater.inc',
@@ -4135,4 +4173,25 @@ function _system_sort_form_values_by_config($form, &$form_state, $inherited_buck
     }
   }
   return $configs;
+}
+
+/**
+ * Implements hook_admin_bar_cache_info().
+ */
+function system_admin_bar_cache_info() {
+  $caches = array(
+    'assets' => t('CSS and JavaScript'),
+    'cache' => t('Page and else'),
+    'layout' => t('Layout'),
+    'menu' => t('Menu'),
+    'theme' => t('Theme registry'),
+    'token' => t('Token registry'),
+  );
+  foreach ($caches as $name => $cache) {
+    $caches[$name] = array(
+      'title' => $cache,
+      'callback' => '_admin_bar_flush_cache',
+    );
+  }
+  return $caches;
 }

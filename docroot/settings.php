@@ -12,7 +12,7 @@
  * advanced database documentation at
  * https://api.backdropcms.org/database-configuration
  */
-$database = 'mysql://user:pass@localhost/database_name';
+$database = 'mysql://user:user@db/default';
 $database_prefix = '';
 
 /**
@@ -34,8 +34,8 @@ $database_prefix = '';
  * $config_directories['staging'] = '/home/myusername/config/staging';
  * @endcode
  */
-$config_directories['active'] = 'files/config_' . md5($database) . '/active';
-$config_directories['staging'] = 'files/config_' . md5($database) . '/staging';
+$config_directories['active'] = './files/config_b25a4a8debf6bc88dd54cb96af5cc5a9/active';
+$config_directories['staging'] = './files/config_b25a4a8debf6bc88dd54cb96af5cc5a9/staging';
 
 /**
  * Access control for update.php script.
@@ -67,7 +67,7 @@ $settings['update_free_access'] = FALSE;
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  *
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = 'NnlrN3eJaoob50PRQQUe7cFEBjfeglnbkWLZDb6QLnc';
 
 /**
  * Base URL (optional).
@@ -342,3 +342,4 @@ $settings['backdrop_drupal_compatibility'] = TRUE;
 if (file_exists(__DIR__ . '/settings.local.php')) {
   include __DIR__ . '/settings.local.php';
 }
+$database_charset = 'utf8mb4';
