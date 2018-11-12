@@ -4,7 +4,7 @@ This is a sample Backdrop CMS installation pre-configured for use with Docksal.
 
 Features:
 
-- Backdrop CMS (updated to version 1.11.2 on 12-Nov-2018)
+- Backdrop CMS
 - `fin init` example
 
 ## Setup instructions
@@ -54,3 +54,28 @@ Some common tasks that can be handled in the init script:
 - run DB updates, revert features, clear caches, etc.
 - enable/disable modules, update variables values
 - run Behat tests
+
+## Updating Backdrop
+
+My Docksal installed version of *Backdrop* is (was) a couple of versions behind on updates so I used the following process to remedy that...
+
+I visited http:/igo-bd.docksal and login as `admin`.  The admin menu bar shows 2 problems, so I visited the link provided by the indicator, http:/igo-bd.docksal/admin/reports/status.  
+
+A link was provided on that page to http:/igo-bd.docksal/admin/modules/update, and on that page was a link to download the necessary update.  I did so, saving the update to `~/Downloads/backdrop.zip`.  I then used *Finder* to unzip the contents creating a `~/Downloads/backdrop` folder.  
+
+I then forked `https://github.com/docksal/example-backdrop/` to `https://github.com/SummittDweller/example-backdrop`
+
+I subsequently performed...
+
+```
+cd ~/Stacks
+rm -fr igo-bd     # remove old contents
+git clone https://github.com/SummittDweller/example-backdrop igo-bd
+rm -fr igo-bd/docroot/.
+rsync -aruvi ~/Downloads/backdrop/. docroot/
+fin init
+```
+
+It works!
+
+The update to *Backdrop 1.11.2* has been pushed back to https://github.com/SummittDweller/example-backdrop so there should be no need to perform that update again.  Also, a PR to https://github.com/docksal/example-backdrop/ has been submitted to update the `master` branch of the upstream repo.
