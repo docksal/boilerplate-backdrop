@@ -79,3 +79,19 @@ fin init
 It works!
 
 The update to *Backdrop 1.11.2* has been pushed back to https://github.com/SummittDweller/example-backdrop so there should be no need to perform that update again.  Also, a PR to https://github.com/docksal/example-backdrop/ has been submitted to update the `master` branch of the upstream repo.
+
+## Taking Steps to Update to Latest Backdrop
+
+I opened a terminal/shell at `Mark-iMac:/Users/markmcfate/Documents/Migrations` and did...
+
+```
+git clone https://github.com/SummittDweller/example-backdrop.git backdrop
+cd backdrop
+fin init
+```
+
+Visit http://backdrop.docksal and it works.  Login as `admin / admin` and visit http://backdrop.docksal/admin/reports/status only to see... `Out of date (version 1.11.3 available)`.  So I clicked the link, downloaded v1.11.3 as a .zip, unpacked it, and copied the contents into my `Users/markmcfate/Documents/Migrations/backdrop/docroot` folder like so:
+
+```
+Mark-iMac:docroot markmcfate$ cp -fr ~/Downloads/backdrop/core. ./core/
+```
