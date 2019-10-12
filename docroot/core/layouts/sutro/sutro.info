@@ -7,8 +7,8 @@ backdrop = 1.x
 regions[header]     = Header
 regions[top]        = Top
 regions[content]    = Content
-regions[half1]      = Half First
-regions[half2]      = Half Second
+regions[half1]      = First Half
+regions[half2]      = Second Half
 regions[bottom]     = Bottom
 regions[footer]     = Footer
 
@@ -27,7 +27,7 @@ preview = sutro.png
 ; Include the Bootstrap4 Grid System
 libraries[] = bootstrap4-gs
 
-; Added by Backdrop CMS packaging script on 2018-05-15
+; Added by Backdrop CMS packaging script on 2019-09-15
 project = backdrop
-version = 1.10.0
-timestamp = 1526418129
+version = 1.14.0
+timestamp = 1568603705
