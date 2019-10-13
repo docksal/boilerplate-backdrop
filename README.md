@@ -13,14 +13,14 @@ Features:
 
 **This is a one time setup - skip this if you already have a working Docksal environment.**  
 
-Follow [Docksal environment setup instructions](http://docksal.readthedocs.io/en/master/getting-started/env-setup)
+Follow [Docksal environment setup instructions](https://docs.docksal.io/getting-started/)
    
 ### Step 2: Project setup
 
 1. Clone this repo into your Projects directory
 
     ```
-    git clone https://github.com/docksal/example-backdrop.git
+    git clone https://github.com/docksal/boilerplate-backdrop.git
     cd backdrop
     ```
 
