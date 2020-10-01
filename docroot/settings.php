@@ -12,7 +12,7 @@
  * advanced database documentation at
  * https://api.backdropcms.org/database-configuration
  */
-$database = 'mysql://user:user@db/default';
+$database = 'mysql://user:pass@localhost/database_name';
 $database_prefix = '';
 
 /**
@@ -34,8 +34,8 @@ $database_prefix = '';
  * $config_directories['staging'] = '/home/myusername/config/staging';
  * @endcode
  */
-$config_directories['active'] = './files/config_4340e45d96ae2f70af9cd5403f165c8d/active';
-$config_directories['staging'] = './files/config_4340e45d96ae2f70af9cd5403f165c8d/staging';
+$config_directories['active'] = 'files/config_' . md5($database) . '/active';
+$config_directories['staging'] = 'files/config_' . md5($database) . '/staging';
 
 /**
  * Access control for update.php script.
@@ -69,7 +69,7 @@ $settings['update_free_access'] = FALSE;
  * @endcode
  *
  */
-$settings['hash_salt'] = 'uNosyMAFp9qPxqX7HZxF3ldhESgUWkJ3FzwczPg_IWo';
+$settings['hash_salt'] = '';
 
 /**
  * Trusted host configuration (optional but highly recommended).
@@ -400,6 +400,23 @@ $settings['404_fast_html'] = '<!DOCTYPE html><html><head><title>404 Not Found</t
 $settings['backdrop_drupal_compatibility'] = TRUE;
 
 /**
+ * Configuration overrides.
+ *
+ * These settings allow you to specify values for anything stored in config
+ * within the files stored in the $config_directories variable above.
+ * This can be useful to store per-environment values or sensitive data that
+ * is undesirable to store in the config storage.
+ *
+ * There are particular configuration values that are risky to override. For
+ * example overriding field storage will create errors because associated
+ * database changes are necessary. Modifying values within complicated objects
+ * such as views, content types, vocabularies, etc. may not work as expected.
+ * Use any available API functions for complex systems instead.
+ */
+//$config['system.core']['site_name'] = 'My Backdrop site';
+//$config['system.core']['file_temporary_path'] = '/tmp';
+
+/**
  * Include a local settings file, if available.
  *
  * To make local development easier, you can add a settings.local.php file that
@@ -420,4 +437,3 @@ $settings['backdrop_drupal_compatibility'] = TRUE;
 if (file_exists(__DIR__ . '/settings.local.php')) {
   include __DIR__ . '/settings.local.php';
 }
-$database_charset = 'utf8mb4';
