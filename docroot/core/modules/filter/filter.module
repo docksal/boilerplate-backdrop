@@ -1411,16 +1411,11 @@ function filter_process_format($element) {
 function filter_get_attached($formats) {
   $attached = array();
   $attached['library'][] = array('filter', 'filter');
-
-  foreach ($formats as $format_name => $format_info) {
-    if (isset($added[$format_name])) {
-      unset($formats[$format_name]);
-    }
-    else {
-      // Add the library associated with a format's editor if needed.
-      if ($format_info->editor && ($editor = filter_editor_load($format_info->editor))) {
-        $attached['library'][] = $editor['library'];
-      }
+  
+  foreach ($formats as $format) {
+    // Add the library associated with a format's editor if exists.
+    if ($format->editor && ($editor = filter_editor_load($format->editor)) && isset($editor['library'])) {
+      $attached['library'][] = $editor['library'];
     }
   }
 
@@ -1756,11 +1751,13 @@ function filter_node_revision_delete(Node $node) {
 function _filter_record_file_usage(array $fids, EntityInterface $entity) {
   foreach ($fids as $fid) {
     $file = file_load($fid);
-    if ($file && $file->status != FILE_STATUS_PERMANENT) {
-      $file->status = FILE_STATUS_PERMANENT;
-      $file->save();
+    if ($file) {
+      if ($file->status != FILE_STATUS_PERMANENT) {
+        $file->status = FILE_STATUS_PERMANENT;
+        $file->save();
+      }
+      file_usage_add($file, 'filter', $entity->entityType(), $entity->id());
     }
-    file_usage_add($file, 'filter', $entity->entityType(), $entity->id());
   }
 }
 
