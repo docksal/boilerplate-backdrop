@@ -12,7 +12,7 @@
  * advanced database documentation at
  * https://api.backdropcms.org/database-configuration
  */
-$database = 'mysql://user:user@db/default';
+$database = 'mysql://user:pass@localhost/database_name';
 $database_prefix = '';
 
 /**
@@ -34,8 +34,8 @@ $database_prefix = '';
  * $config_directories['staging'] = '/home/myusername/config/staging';
  * @endcode
  */
-$config_directories['active'] = './files/config_4bba9c13c86ee4ef4310d08306dd664c/active';
-$config_directories['staging'] = './files/config_4bba9c13c86ee4ef4310d08306dd664c/staging';
+$config_directories['active'] = 'files/config_' . md5($database) . '/active';
+$config_directories['staging'] = 'files/config_' . md5($database) . '/staging';
 
 /**
  * Skip the configuration staging directory cleanup
@@ -77,7 +77,7 @@ $settings['update_free_access'] = FALSE;
  * @endcode
  *
  */
-$settings['hash_salt'] = 'ptLEp-SKNfNuMWnAcclgVVSI-wESgzCFAaZASgd6pNM';
+$settings['hash_salt'] = '';
 
 /**
  * Trusted host configuration (optional but highly recommended).
@@ -408,6 +408,24 @@ $settings['404_fast_html'] = '<!DOCTYPE html><html><head><title>404 Not Found</t
 $settings['backdrop_drupal_compatibility'] = TRUE;
 
 /**
+ * Suppress warnings of multiple versions of the same module being found.
+ *
+ * When scanning for module files, if Backdrop encounters multiple instances of
+ * the same module (for example, a version of a module in the /modules directory
+ * that has the same name as a module in /core), then only the last module will
+ * be loaded. In such cases, Backdrop will show a warning on the status report
+ * page.
+ *
+ * Having multiple versions of the same module may be intentional in certain use
+ * cases though, such as in some multisite configurations, when there is need to
+ * override a core or contrib module with a different version in the /sites
+ * folder. In such cases, you may want to disable the status report warnings.
+ *
+ * Uncomment the line below to disable the warnings.
+ */
+// $settings['disable_multiple_modules_warnings'] = TRUE;
+
+/**
  * Configuration overrides.
  *
  * These settings allow you to specify values for anything stored in config
@@ -458,4 +476,3 @@ $settings['backdrop_drupal_compatibility'] = TRUE;
 if (file_exists(__DIR__ . '/settings.local.php')) {
   include __DIR__ . '/settings.local.php';
 }
-$database_charset = 'utf8mb4';
