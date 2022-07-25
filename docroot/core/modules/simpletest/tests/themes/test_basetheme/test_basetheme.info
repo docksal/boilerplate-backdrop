@@ -8,7 +8,7 @@ hidden = TRUE
 settings[basetheme_only] = base theme value
 settings[subtheme_override] = base theme value
 
-; Added by Backdrop CMS packaging script on 2022-05-15
+; Added by Backdrop CMS packaging script on 2022-07-21
 project = backdrop
-version = 1.22.0
-timestamp = 1652672169
+version = 1.22.2
+timestamp = 1658447718
