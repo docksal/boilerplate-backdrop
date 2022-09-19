@@ -55,12 +55,11 @@ site_install ()
 	cd $DOCROOT_PATH
 
 	# We disable email sending here so site-install does not return an error
-	drush si standard --db-url="mysql://user:user@db/default" \
+
+	/usr/local/bin/bee/bee.php si --db-name=default --db-user=user \
+	  --db-host=db --db-pass=user --url="${VIRTUAL_HOST}" \
 		--site-name='My Backdrop Site' \
-		--account-name="admin"
-	
-	# Currently a way to set password at runtime with drush site-install
-	drush backdrop-user-password admin --password=admin
+		--username="admin" --password="admin" --auto
 }
 
 #-------------------------- END: Functions --------------------------------

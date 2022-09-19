@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+## Run a bee command inside the cli container.
+##
+## Usage: fin bee [command]
+
+
+#-------------------------- Settings --------------------------------
+
+# PROJECT_ROOT and DOCROOT are set as env variables in cli
+SITE_DIRECTORY="default"
+DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
+
+#-------------------------- END: Settings --------------------------------
+
+fin exec /usr/local/bin/bee/bee.php --root=${DOCROOT_PATH} "$@"

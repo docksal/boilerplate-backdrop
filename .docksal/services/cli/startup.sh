@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-DRUSH_BACKDROP_VERSION=1.4.0
-
-	# Drush modules
-	drush dl registry_rebuild --default-major=7 --destination=$HOME/.drush >/dev/null; \
-	mkdir $HOME/.drush/backdrop && curl -fsSL "https://github.com/backdrop-contrib/backdrop-drush-extension/archive/refs/tags/${DRUSH_BACKDROP_VERSION}.tar.gz" | tar xz -C $HOME/.drush/backdrop --strip-components 1; \
-	drush cc drush
+# Install Backdrop CLI tool bee:
+wget -qO bee.zip https://github.com/backdrop-contrib/bee/archive/refs/heads/1.x-1.x.zip
+unzip -q bee.zip && rm bee.zip
+sudo mv bee-1.x-1.x /usr/local/bin/bee
