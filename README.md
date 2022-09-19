@@ -54,3 +54,8 @@ Some common tasks that can be handled in the init script:
 - run DB updates, revert features, clear caches, etc.
 - enable/disable modules, update variables values
 - run Behat tests
+
+## Bee command included
+
+Backdrop has a command line utility called [Bee](https://github.com/backdrop-contrib/bee).
+Bee commands can be run by calling `fin bee [command]`.
