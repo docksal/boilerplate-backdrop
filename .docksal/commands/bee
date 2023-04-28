@@ -13,4 +13,4 @@ DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
 
 #-------------------------- END: Settings --------------------------------
 
-fin exec /usr/local/bin/bee/bee.php --root=${DOCROOT_PATH} "$@"
+fin exec /usr/local/bin/bee/bee.php --root=/var/www/${dorcoot} "$@"
