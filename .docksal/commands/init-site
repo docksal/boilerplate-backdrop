@@ -56,10 +56,15 @@ site_install ()
 
 	# We disable email sending here so site-install does not return an error
 
-	/usr/local/bin/bee/bee.php si --db-name=default --db-user=user \
-	  --db-host=db --db-pass=user --url="${VIRTUAL_HOST}" \
+	/usr/local/bin/bee/bee.php si \
+		--db-name="default" \
+		--db-user="user" \
+		--db-pass="user" \
+		--db-host="db" \
 		--site-name='My Backdrop Site' \
-		--username="admin" --password="admin" --auto
+		--username="admin" \
+		--password="admin" \
+		--auto
 }
 
 #-------------------------- END: Functions --------------------------------
