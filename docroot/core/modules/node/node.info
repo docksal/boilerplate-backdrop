@@ -9,7 +9,7 @@ required = TRUE
 dependencies[] = entity
 configure = admin/structure/types
 
-; Added by Backdrop CMS packaging script on 2023-10-06
+; Added by Backdrop CMS packaging script on 2023-12-20
 project = backdrop
-version = 1.26.1
-timestamp = 1696627719
+version = 1.26.3
+timestamp = 1703111980
