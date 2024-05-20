@@ -1917,7 +1917,7 @@ function theme_menu_toggle($variables) {
     $output  = '<input id="' . $id . '" class="menu-toggle-state element-invisible" type="checkbox" aria-controls="' . $id . '" />';
     $output .= '<label class="menu-toggle-button" for="' . $id . '">';
     $output .= '<span class="menu-toggle-button-icon"></span>';
-    $output .= '<span class="menu-toggle-button-text">' . $variables['text'] . '</span>';
+    $output .= (!empty($variables['text'])) ? '<span class="menu-toggle-button-text">' . check_plain($variables['text']) . '</span>' : '';
     $output .= '<span class="menu-toggle-assistive-text element-invisible">' . t('Toggle menu visibility') . '</span>';
     $output .= '</label>';
   }
@@ -2982,6 +2982,16 @@ function _menu_link_build($item) {
   elseif (!($item['type'] & MENU_VISIBLE_IN_TREE)) {
     $item['hidden'] = -1;
   }
+
+  // Save icon and description to options.
+  $options = array();
+  if (!empty($item['icon'])) {
+    $options['icon'] = $item['icon'];
+  }
+  if (!empty($item['description'])) {
+    $options['attributes']['title'] = $item['description'];
+  }
+
   // Note, we set this as 'system', so that we can be sure to distinguish all
   // the menu links generated automatically from entries in {menu_router}.
   $item['module'] = 'system';
@@ -2990,7 +3000,7 @@ function _menu_link_build($item) {
     'link_title' => $item['title'],
     'link_path' => $item['path'],
     'hidden' => 0,
-    'options' => empty($item['description']) ? array() : array('attributes' => array('title' => $item['description'])),
+    'options' => $options,
   );
   return $item;
 }

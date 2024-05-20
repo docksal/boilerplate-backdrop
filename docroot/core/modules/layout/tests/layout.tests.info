@@ -70,7 +70,7 @@ description = Tests checks and messages when layouts are deleted.
 group = Layout
 file = layout.test
 
-; Added by Backdrop CMS packaging script on 2023-12-20
+; Added by Backdrop CMS packaging script on 2024-05-15
 project = backdrop
-version = 1.26.3
-timestamp = 1703111980
+version = 1.28.0
+timestamp = 1715827451

@@ -298,6 +298,12 @@ description = Performs tests on Backdrop's HTTP request mechanism.
 group = Common
 file = common.test
 
+[CommonBackdropHTTPRedirectTest]
+name = Backdrop HTTP Redirect Processing
+description = Perform unit tests on processing of http redirects.
+group = Common
+file = common.test
+
 [CommonBackdropHTTPResponseStatusLineTest]
 name = Backdrop HTTP Response Status
 description = Performs unit tests on Backdrop's HTTP Response Status.
@@ -958,6 +964,12 @@ description = Tests form API checkbox handling of various combinations of #defau
 group = Form API
 file = form.test
 
+[FormResizableTextareaTestCase]
+name = Form API resizable textarea
+description = Tests transition from old JS-based textarea resize to new CSS approach.
+group = Form API
+file = form.test
+
 [FormEmailTestCase]
 name = Form API email
 description = Tests the form API email element.
@@ -999,6 +1011,12 @@ name = Graph
 description = Graph handling unit tests.
 group = System
 file = graph.test
+
+[IconTestCase]
+name = Icon API
+description = Tests the providing and path matching of SVG icons.
+group = System
+file = icon.test
 
 [ImageToolkitUnitTest]
 name = Image toolkit tests
@@ -1372,7 +1390,7 @@ description = Test the file tokens.
 group = Token
 file = token.test
 
-; Added by Backdrop CMS packaging script on 2023-12-20
+; Added by Backdrop CMS packaging script on 2024-05-15
 project = backdrop
-version = 1.26.3
-timestamp = 1703111980
+version = 1.28.0
+timestamp = 1715827451
