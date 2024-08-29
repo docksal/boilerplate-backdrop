@@ -32,12 +32,12 @@ Follow [Docksal environment setup instructions](https://docs.docksal.io/getting-
     fin init
     ```
 
-3. **On Windows** add `192.168.64.100  backdrop.docksal` to your hosts file
+3. **On Windows** add `192.168.64.100  backdrop.docksal.site` to your hosts file
 
 4. Point your browser to
 
     ```
-    http://backdrop.docksal
+    http://backdrop.docksal.site
     ```
 
 
