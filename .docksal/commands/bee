@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#: exec_target = cli
+
 ## Run a bee command inside the cli container.
 ##
 ## Usage: fin bee [command]
@@ -13,4 +15,4 @@ DOCROOT_PATH="${PROJECT_ROOT}/${DOCROOT}"
 
 #-------------------------- END: Settings --------------------------------
 
-fin exec /usr/local/bin/bee/bee.php --root=${DOCROOT_PATH} "$@"
+/usr/local/bin/bee/bee.php --root=${DOCROOT_PATH} "$@"
